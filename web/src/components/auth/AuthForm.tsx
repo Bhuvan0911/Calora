@@ -83,7 +83,7 @@ export function AuthForm({ mode }: AuthFormProps) {
                   id="displayName"
                   name="displayName"
                   autoComplete="name"
-                  placeholder="Aishwarya"
+                  placeholder="Virat Kohli"
                   value={displayName}
                   hasError={Boolean(fieldError('displayName'))}
                   onChange={(event) => setDisplayName(event.target.value)}

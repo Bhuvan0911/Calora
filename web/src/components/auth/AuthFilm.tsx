@@ -40,10 +40,10 @@ export function AuthFilm({ mode }: { mode: 'login' | 'signup' }) {
       <div className="relative z-10 flex h-full min-h-[12rem] flex-col justify-between px-5 py-4 sm:min-h-[24rem] sm:px-8 sm:py-8 lg:min-h-dvh lg:px-10 lg:py-10">
         <Link
           href="/"
-          className="self-start [&_img]:brightness-0 [&_img]:invert [&_span]:text-white/55"
+          className="inline-flex items-center self-start rounded-full bg-black/55 px-3.5 py-2 shadow-[0_10px_28px_rgb(0_0_0/0.4)] ring-1 ring-white/35 backdrop-blur-md [&_img]:brightness-0 [&_img]:invert [&_img]:drop-shadow-[0_1px_6px_rgb(0_0_0/0.45)] [&_span]:text-white [&_span]:drop-shadow-[0_1px_8px_rgb(0_0_0/0.55)]"
           aria-label="Calora"
         >
-          <BrandMark size={28} />
+          <BrandMark size={40} />
         </Link>
 
         <div data-auth="copy" className="max-w-md">

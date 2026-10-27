@@ -1,0 +1,40 @@
+import { Router } from 'express';
+import { asyncHandler } from '../lib/async-handler.js';
+import { authenticate, requireUser } from '../middleware/auth.js';
+import { rateLimit } from '../middleware/rateLimit.js';
+import { handleValidation, validatedBody } from '../middleware/validate.js';
+import type { LoginInput, SignupInput } from '../types/dto.js';
+import { loginValidators, signupValidators } from '../validators/auth.validator.js';
+import * as authService from '../services/authService.js';
+
+export const authRouter = Router();
+
+const authAttemptLimit = rateLimit({ name: 'auth', max: 20, windowMs: 60_000 });
+
+authRouter.post(
+  '/signup',
+  authAttemptLimit,
+  signupValidators,
+  handleValidation,
+  asyncHandler(async (req, res) => {
+    res.status(201).json(await authService.signup(validatedBody<SignupInput>(req)));
+  }),
+);
+
+authRouter.post(
+  '/login',
+  authAttemptLimit,
+  loginValidators,
+  handleValidation,
+  asyncHandler(async (req, res) => {
+    res.json(await authService.login(validatedBody<LoginInput>(req)));
+  }),
+);
+
+authRouter.get(
+  '/me',
+  authenticate,
+  asyncHandler(async (req, res) => {
+    res.json({ user: await authService.getProfile(requireUser(req).userId) });
+  }),
+);
